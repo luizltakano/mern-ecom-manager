@@ -9,7 +9,7 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
-
+import OverallStat from "./models/OverallStat.js";
 import Transaction from "./models/Transaction.js";
 import User from "./models/User.js";
 import Product from "./models/Product.js";
@@ -19,6 +19,7 @@ import {
 	dataProduct,
 	dataUser,
 	dataProductStat,
+	dataOverallStat,
 } from "./data/index.js";
 
 /* CONFIGURATION */
@@ -48,6 +49,7 @@ try {
 		useUnifiedTopology: true,
 	});
 
+	// OverallStat.insertMany(dataOverallStat)
 	// Transaction.insertMany(dataTransaction)
 	// User.insertMany(dataUser);
 	// Product.insertMany(dataProduct)
