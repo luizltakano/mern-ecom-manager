@@ -102,6 +102,7 @@ const OverviewChart = ({ view, isDashboard = false }) => {
 			}}
 			yFormat=" >-.2f"
 			curve="catmullRom"
+			enableArea={isDashboard}
 			axisTop={null}
 			axisRight={null}
 			axisBottom={{
@@ -119,6 +120,7 @@ const OverviewChart = ({ view, isDashboard = false }) => {
 			}}
 			axisLeft={{
 				orient: "left",
+				tickValues: 5,
 				tickSize: 5,
 				tickPadding: 5,
 				tickRotation: 0,
@@ -137,7 +139,7 @@ const OverviewChart = ({ view, isDashboard = false }) => {
 			pointLabelYOffset={-12}
 			useMesh={true}
 			legends={
-				isDashboard
+				!isDashboard
 					? [
 							{
 								anchor: "bottom-right",

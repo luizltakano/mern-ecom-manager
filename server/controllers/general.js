@@ -1,4 +1,6 @@
 import User from "../models/User.js";
+import OverallStat from "../models/OverallStat.js";
+import Transaction from "../models/Transaction.js";
 
 export const getUser = async (req, res) => {
 	try {
@@ -6,11 +8,58 @@ export const getUser = async (req, res) => {
 		const user = await User.findById(id);
 
 		res.statusCode = 200;
-            res.write(
-                JSON.stringify(user)
-            );
-            res.end();
+		res.write(JSON.stringify(user));
+		res.end();
 	} catch (error) {
-		res.status(404).json({message: error.message});
+		res.status(404).json({ message: error.message });
+	}
+};
+
+export const getDashboardStats = async (req, res) => {
+	try {
+		const currentMonth = "November";
+		const currentYear = "2021";
+		const currentDay = "2021-11-15";
+
+		// Recent transactions
+		const transactions = await Transaction.find()
+			.limit(50)
+			.sort({ createdOn: -1 });
+
+		// Overall Stats
+		const overallStat = await OverallStat.find({ year: currentYear });
+
+		const {
+			totalCustomers,
+			yearlyTotalSoldUnits,
+			yearlySalesTotal,
+			monthlyData,
+			salesByCategory,
+		} = overallStat[0];
+
+		const thisMonthStats = overallStat[0].monthlyData.find(({ month }) => {
+			return month === currentMonth;
+		});
+
+		const todayStats = overallStat[0].dailyData.find(({ date }) => {
+			return date === currentDay;
+		});
+
+		res.statusCode = 200;
+		res.write(
+			JSON.stringify({
+				totalCustomers,
+				yearlyTotalSoldUnits,
+				yearlySalesTotal,
+				monthlyData,
+				salesByCategory,
+				thisMonthStats,
+				todayStats,
+				transactions,
+			})
+		);
+		res.end();
+	} catch (error) {
+		res.status(404).json({ message: error.message });
 	}
 };

@@ -14,12 +14,14 @@ import Transaction from "./models/Transaction.js";
 import User from "./models/User.js";
 import Product from "./models/Product.js";
 import ProductStat from "./models/ProductStat.js";
+import AffiliateStat from "./models/AffiliateStat.js";
 import {
 	dataTransaction,
 	dataProduct,
 	dataUser,
 	dataProductStat,
 	dataOverallStat,
+	dataAffiliateStat,
 } from "./data/index.js";
 
 /* CONFIGURATION */
@@ -54,6 +56,7 @@ try {
 	// User.insertMany(dataUser);
 	// Product.insertMany(dataProduct)
 	// ProductStat.insertMany(dataProductStat)
+	// AffiliateStat.insertMany(dataAffiliateStat)
 
 	app.listen(PORT, () => {
 		console.log(`Server active on Port: ${PORT}`);
